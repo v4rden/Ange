@@ -5,4 +5,8 @@
         <RootNamespace>Agne.Infostructure</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Ange.Common\Ange.Common.csproj" />
+    </ItemGroup>
+
 </Project>

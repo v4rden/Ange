@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Ange.Application\Ange.Application.csproj" />
       <ProjectReference Include="..\Ange.Common\Ange.Common.csproj" />
     </ItemGroup>
 

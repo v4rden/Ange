@@ -1,7 +1,6 @@
 namespace Ange.Application.User.Commands.CreateUser
 {
     using System;
-    using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Domain.Entities;
@@ -13,7 +12,6 @@ namespace Ange.Application.User.Commands.CreateUser
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }
-        public ICollection<Guid> RecideRooms { get; private set; }
 
         public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Unit>
         {

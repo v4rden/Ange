@@ -14,13 +14,13 @@ namespace Ange.Application.User.Commands.CreateUser
         public string Name { get; set; }
         public string Country { get; set; }
         public ICollection<Guid> RecideRooms { get; private set; }
-        
-        public class Handler : IRequestHandler<CreateUserCommand, Unit>
+
+        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Unit>
         {
             private readonly IAngeDbContext _context;
             private readonly IMediator _mediator;
 
-            public Handler(IAngeDbContext context, IMediator mediator)
+            public CreateUserCommandHandler(IAngeDbContext context, IMediator mediator)
             {
                 _context = context;
                 _mediator = mediator;
@@ -39,7 +39,7 @@ namespace Ange.Application.User.Commands.CreateUser
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                await _mediator.Publish(new UserCreated { Id = entity.Id }, cancellationToken);
+                await _mediator.Publish(new UserCreated {Id = entity.Id}, cancellationToken);
 
                 return Unit.Value;
             }

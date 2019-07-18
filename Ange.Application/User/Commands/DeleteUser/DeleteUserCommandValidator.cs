@@ -1,6 +1,12 @@
 namespace Ange.Application.User.Commands.DeleteUser
 {
-    public class DeleteUserCommandValidator
+    using FluentValidation;
+
+    public class DeleteUserCommandValidator : AbstractValidator<DeleteUserCommand>
     {
+        public DeleteUserCommandValidator()
+        {
+            RuleFor(x => x.Id).NotEmpty();
+        }
     }
 }

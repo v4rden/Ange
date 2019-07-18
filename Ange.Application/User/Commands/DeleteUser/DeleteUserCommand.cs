@@ -1,6 +1,6 @@
 namespace Ange.Application.User.Commands.DeleteUser
 {
-    using System.Linq;
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Exceptions;
@@ -9,15 +9,17 @@ namespace Ange.Application.User.Commands.DeleteUser
 
     public class DeleteUserCommand : IRequest
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
-        public class DeleteCustomerCommandHandler : IRequestHandler<DeleteUserCommand>
+        public class DeleteCustomerCommandHandler : IRequestHandler<DeleteUserCommand, Unit>
         {
             private readonly IAngeDbContext _context;
+            private readonly IMediator _mediator;
 
-            public DeleteCustomerCommandHandler(IAngeDbContext context)
+            public DeleteCustomerCommandHandler(IAngeDbContext context, IMediator mediator)
             {
                 _context = context;
+                _mediator = mediator;
             }
 
             public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
@@ -33,6 +35,8 @@ namespace Ange.Application.User.Commands.DeleteUser
                 _context.Users.Remove(entity);
 
                 await _context.SaveChangesAsync(cancellationToken);
+
+                await _mediator.Publish(new UserDeleted {Id = request.Id}, cancellationToken);
 
                 return Unit.Value;
             }

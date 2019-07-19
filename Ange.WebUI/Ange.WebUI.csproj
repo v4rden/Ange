@@ -13,6 +13,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.4.0"/>
+    <PackageReference Include="AutoMapper" Version="8.1.1"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.1"/>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.4.0"/>
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
@@ -26,6 +31,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ange.Application\Ange.Application.csproj"/>
+    <ProjectReference Include="..\Ange.Common\Ange.Common.csproj"/>
+    <ProjectReference Include="..\Ange.Infrastructure\Ange.Infrastructure.csproj"/>
+    <ProjectReference Include="..\Ange.Persistence\Ange.Persistence.csproj"/>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

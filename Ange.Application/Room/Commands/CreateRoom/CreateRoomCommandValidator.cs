@@ -9,7 +9,7 @@ namespace Ange.Application.Room.CreateRoom
             RuleFor(x => x.Id).NotEmpty();
             RuleFor(x => x.Title).Length(100).NotEmpty();
             RuleFor(x => x.RoomCreator).NotEmpty();
-            RuleFor(x => x.RoomType).NotEmpty();
+            RuleFor(x => x.Type).NotEmpty();
         }
     }
 }

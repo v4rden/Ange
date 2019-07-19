@@ -4,6 +4,7 @@ namespace Ange.Application.Room.CreateRoom
     using System.Threading;
     using System.Threading.Tasks;
     using Domain.Entities;
+    using Domain.Enumerations;
     using Interfaces;
     using MediatR;
     using User.Commands.CreateUser;
@@ -13,7 +14,7 @@ namespace Ange.Application.Room.CreateRoom
         public Guid Id { get; set; }
         public string Title { get; set; }
         public Guid RoomCreator { get; set; }
-        public int RoomType { get; set; }
+        public RoomType Type { get; set; }
 
         public class CreateRoomCommandHandler : IRequestHandler<CreateRoomCommand, Unit>
         {
@@ -33,7 +34,7 @@ namespace Ange.Application.Room.CreateRoom
                     Id = request.Id,
                     Title = request.Title,
                     RoomCreator = request.RoomCreator,
-                    RoomType = request.RoomType,
+                    Type = request.Type,
                 };
 
                 _context.Rooms.Add(entity);

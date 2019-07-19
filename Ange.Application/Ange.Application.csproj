@@ -15,4 +15,8 @@
         <ProjectReference Include="..\Ange.Domain\Ange.Domain.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Folder Include="Room\Commands"/>
+    </ItemGroup>
+
 </Project>

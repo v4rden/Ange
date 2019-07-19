@@ -2,6 +2,7 @@ namespace Ange.Domain.Entities
 {
     using System;
     using System.Collections.Generic;
+    using Enumerations;
 
     public class Room
     {
@@ -13,7 +14,7 @@ namespace Ange.Domain.Entities
         public Guid Id { get; set; }
         public string Title { get; set; }
         public Guid RoomCreator { get; set; }
-        public int RoomType { get; set; }
+        public RoomType Type { get; set; }
         public ICollection<Guid> Participants { get; private set; }
     }
 }

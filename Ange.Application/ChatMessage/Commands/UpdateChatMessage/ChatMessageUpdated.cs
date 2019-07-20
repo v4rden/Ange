@@ -1,5 +1,6 @@
 namespace Ange.Application.ChatMessage.Commands.UpdateChatMessage
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using Interfaces;
@@ -8,16 +9,21 @@ namespace Ange.Application.ChatMessage.Commands.UpdateChatMessage
 
     public class ChatMessageUpdated : INotification
     {
-        private readonly INotificationService _notification;
+        public Guid Id { get; set; }
 
-        public ChatMessageUpdated(INotificationService notification)
+        public class ChatMessageUpdatedHandler : INotificationHandler<ChatMessageUpdated>
         {
-            _notification = notification;
-        }
+            private readonly INotificationService _notification;
 
-        public async Task Handle(ChatMessageUpdated notification, CancellationToken cancellationToken)
-        {
-            await _notification.SendAsync(new NotificationMsg());
+            public ChatMessageUpdatedHandler(INotificationService notification)
+            {
+                _notification = notification;
+            }
+
+            public async Task Handle(ChatMessageUpdated notification, CancellationToken cancellationToken)
+            {
+                await _notification.SendAsync(new NotificationMsg());
+            }
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Ange.Application.ChatMessage.Commands.CreateChatMessage
     public class CreateChatMessageCommand : IRequest
     {
         public Guid Id { get; set; }
-        public Guid Room { get; set; }
-        public Guid Author { get; set; }
+        public Guid RoomId { get; set; }
+        public Guid AuthorId { get; set; }
         public DateTime SentTime { get; set; }
         public DateTime LastModified { get; set; }
         public MessageType Type { get; set; }
@@ -34,8 +34,8 @@ namespace Ange.Application.ChatMessage.Commands.CreateChatMessage
                 var entity = new ChatMessage
                 {
                     Id = request.Id,
-                    Room = request.Room,
-                    Author = request.Author,
+                    RoomId = request.RoomId,
+                    AuthorId = request.AuthorId,
                     SentTime = request.SentTime,
                     LastModified = request.LastModified,
                     Type = request.Type,

@@ -9,8 +9,8 @@ namespace Ange.Application.ChatMessage.Queries.GetChatMessageList
     public class ChatMessageLookupModel : IHaveCustomMapping
     {
         public Guid Id { get; set; }
-        public Guid Room { get; set; }
-        public Guid Author { get; set; }
+        public Guid RoomId { get; set; }
+        public Guid AuthorId { get; set; }
         public DateTime SentTime { get; set; }
         public DateTime LastModified { get; set; }
         public MessageType Type { get; set; }
@@ -20,8 +20,8 @@ namespace Ange.Application.ChatMessage.Queries.GetChatMessageList
         {
             configuration.CreateMap<ChatMessage, ChatMessageLookupModel>()
                 .ForMember(mDto => mDto.Id, opt => opt.MapFrom(m => m.Id))
-                .ForMember(mDto => mDto.Room, opt => opt.MapFrom(m => m.Room))
-                .ForMember(mDto => mDto.Author, opt => opt.MapFrom(m => m.Author))
+                .ForMember(mDto => mDto.RoomId, opt => opt.MapFrom(m => m.RoomId))
+                .ForMember(mDto => mDto.AuthorId, opt => opt.MapFrom(m => m.AuthorId))
                 .ForMember(mDto => mDto.SentTime, opt => opt.MapFrom(m => m.SentTime))
                 .ForMember(mDto => mDto.LastModified, opt => opt.MapFrom(m => m.LastModified))
                 .ForMember(mDto => mDto.Type, opt => opt.MapFrom(m => m.Type))

@@ -8,8 +8,8 @@ namespace Ange.Application.ChatMessage.Queries.GetChatMessageDetail
     public class ChatMessageDetailModel
     {
         public Guid Id { get; set; }
-        public Guid Room { get; set; }
-        public Guid Author { get; set; }
+        public Guid RoomId { get; set; }
+        public Guid AuthorId { get; set; }
         public DateTime SentTime { get; set; }
         public DateTime LastModified { get; set; }
         public MessageType Type { get; set; }
@@ -22,8 +22,8 @@ namespace Ange.Application.ChatMessage.Queries.GetChatMessageDetail
                 return chatMessage => new ChatMessageDetailModel
                 {
                     Id = chatMessage.Id,
-                    Room = chatMessage.Room,
-                    Author = chatMessage.Author,
+                    RoomId = chatMessage.RoomId,
+                    AuthorId = chatMessage.AuthorId,
                     SentTime = chatMessage.SentTime,
                     LastModified = chatMessage.LastModified,
                     Type = chatMessage.Type,

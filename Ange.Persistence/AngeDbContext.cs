@@ -14,6 +14,8 @@ namespace Ange.Persistence
         public DbSet<Room> Rooms { get; set; }
         public DbSet<ChatMessage> ChatMessages { get; set; }
 
+        public DbSet<UserRoom> UserRooms { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AngeDbContext).Assembly);

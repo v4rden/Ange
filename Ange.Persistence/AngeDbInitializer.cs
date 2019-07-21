@@ -32,6 +32,7 @@ namespace Ange.Persistence
             SeedUsers(context);
             SeedRooms(context);
             SeedMessages(context);
+            SeedUserRooms(context);
         }
 
         private void SeedUsers(AngeDbContext context)
@@ -112,6 +113,20 @@ namespace Ange.Persistence
                     MessageText = "Message from user2 to user1."
                 },
             };
+        }
+
+        private void SeedUserRooms(AngeDbContext context)
+        {
+            var ur = new[]
+            {
+                new UserRoom {UserId = User1, RoomId = Room1},
+                new UserRoom {UserId = User2, RoomId = Room2},
+                new UserRoom {UserId = User1, RoomId = Room3},
+                new UserRoom {UserId = User2, RoomId = Room3},
+            };
+
+            context.UserRooms.AddRange(ur);
+            context.SaveChanges();
         }
     }
 }

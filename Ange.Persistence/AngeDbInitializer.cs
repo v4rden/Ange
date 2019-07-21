@@ -113,6 +113,9 @@ namespace Ange.Persistence
                     MessageText = "Message from user2 to user1."
                 },
             };
+
+            context.AddRange(messages);
+            context.SaveChanges();
         }
 
         private void SeedUserRooms(AngeDbContext context)

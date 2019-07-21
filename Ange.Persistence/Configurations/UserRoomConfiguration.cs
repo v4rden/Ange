@@ -8,7 +8,7 @@ namespace Ange.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<UserRoom> builder)
         {
-            builder.HasKey(ur => new {ur.User, ur.Room})
+            builder.HasKey(ur => new {ur.UserId, ur.RoomId})
                 .ForSqlServerIsClustered(false);
 
             builder.HasOne(ur => ur.User)

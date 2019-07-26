@@ -51,6 +51,8 @@ namespace Ange.WebUI
 
             services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 
+            services.AddSwaggerDocument();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
@@ -67,6 +69,9 @@ namespace Ange.WebUI
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

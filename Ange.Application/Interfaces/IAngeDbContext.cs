@@ -10,6 +10,7 @@ namespace Ange.Application.Interfaces
         DbSet<User> Users { get; set; }
         DbSet<Room> Rooms { get; set; }
         DbSet<ChatMessage> ChatMessages { get; set; }
+        DbSet<UserRoom> UserRooms { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }

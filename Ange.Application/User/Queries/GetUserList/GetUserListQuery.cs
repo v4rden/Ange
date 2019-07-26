@@ -4,5 +4,6 @@ namespace Ange.Application.User.Queries.GetUserList
 
     public class GetUserListQuery : IRequest<UserListViewModel>
     {
+        public string Name { get; set; }
     }
 }

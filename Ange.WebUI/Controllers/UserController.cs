@@ -27,6 +27,14 @@ namespace Ange.WebUI.Controllers
             return Ok(await Mediator.Send(new GetUserDetailQuery {Id = id}));
         }
 
+        [HttpGet("{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<UserListViewModel>> GetByName(string name)
+        {
+            return Ok(await Mediator.Send(new GetUserListQuery {Name = name}));
+        }
+
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesDefaultResponseType]

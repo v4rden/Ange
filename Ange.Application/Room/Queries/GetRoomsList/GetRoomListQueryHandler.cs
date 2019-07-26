@@ -1,9 +1,11 @@
 namespace Ange.Application.Room.Queries.GetRoomsList
 {
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Domain.Entities;
     using Interfaces;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
@@ -23,10 +25,18 @@ namespace Ange.Application.Room.Queries.GetRoomsList
         {
             return new RoomListViewModel
             {
-                Rooms = await _context.Rooms
+                Rooms = await GetQuery(request)
                     .ProjectTo<RoomLookupModel>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken)
             };
+        }
+
+        private IQueryable<Room> GetQuery(GetRoomListQuery request)
+        {
+            return request.Title == null
+                ? _context.Rooms
+                : _context.Rooms
+                    .Where(r => r.Title.Contains(request.Title));
         }
     }
 }

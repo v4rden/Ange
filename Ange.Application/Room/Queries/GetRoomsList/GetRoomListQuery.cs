@@ -4,5 +4,6 @@ namespace Ange.Application.Room.Queries.GetRoomsList
 
     public class GetRoomListQuery : IRequest<RoomListViewModel>
     {
+        public string Title { get; set; }
     }
 }

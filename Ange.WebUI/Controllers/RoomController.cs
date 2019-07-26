@@ -23,5 +23,18 @@ namespace Ange.WebUI.Controllers
         {
             return Ok(await Mediator.Send(new GetRoomDetailQuery {Id = id}));
         }
+
+        [HttpGet("{title}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<RoomListViewModel>> GetByTitle(string title)
+        {
+            return Ok(await Mediator.Send(new GetRoomListQuery {Title = title}));
+        }
+
+        public async Task<ActionResult<RoomListViewModel>> GetByResident(Guid id)
+        {
+            return Ok(await Mediator.Send(new GetRoomListQuery {Resident = id}));
+        }
     }
 }

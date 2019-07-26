@@ -1,5 +1,6 @@
 namespace Ange.Application.Room.Queries.GetRoomsList
 {
+    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace Ange.Application.Room.Queries.GetRoomsList
     using Interfaces;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using Remotion.Linq.Clauses;
 
     public class GetRoomListQueryHandler : IRequestHandler<GetRoomListQuery, RoomListViewModel>
     {
@@ -33,10 +35,20 @@ namespace Ange.Application.Room.Queries.GetRoomsList
 
         private IQueryable<Room> GetQuery(GetRoomListQuery request)
         {
-            return request.Title == null
-                ? _context.Rooms
-                : _context.Rooms
-                    .Where(r => r.Title.Contains(request.Title));
+            if (request.Title != null)
+            {
+                return _context.Rooms.Where(r => r.Title.Contains(request.Title));
+            }
+
+            if (request.Resident != Guid.Empty)
+            {
+                return _context.Rooms
+                    .SelectMany(room => _context.UserRooms, (room, ur) => new {room, ur})
+                    .Where(t => t.ur.RoomId == t.room.Id)
+                    .Select(t => t.room);
+            }
+
+            return _context.Rooms;
         }
     }
 }

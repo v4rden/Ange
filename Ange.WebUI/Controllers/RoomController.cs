@@ -2,6 +2,7 @@ namespace Ange.WebUI.Controllers
 {
     using System;
     using System.Threading.Tasks;
+    using Application.Room.CreateRoom;
     using Application.Room.Queries.GetRoomDetail;
     using Application.Room.Queries.GetRoomsList;
     using Microsoft.AspNetCore.Http;
@@ -35,6 +36,16 @@ namespace Ange.WebUI.Controllers
         public async Task<ActionResult<RoomListViewModel>> GetByResident(Guid id)
         {
             return Ok(await Mediator.Send(new GetRoomListQuery {Resident = id}));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> Create([FromBody] CreateRoomCommand command)
+        {
+            await Mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

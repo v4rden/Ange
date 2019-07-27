@@ -1,5 +1,6 @@
 namespace Ange.Application.User.Queries.GetUserList
 {
+    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -33,10 +34,22 @@ namespace Ange.Application.User.Queries.GetUserList
 
         private IQueryable<User> GetQuery(GetUserListQuery request)
         {
-            return request.Name == null
-                ? _context.Users
-                : _context.Users
-                    .Where(u => u.Name.Contains(request.Name));
+            if (string.IsNullOrEmpty(request.Name))
+            {
+                return _context.Users.Where(u => u.Name.Contains(request.Name));
+            }
+
+            if (request.RoomId != Guid.Empty)
+            {
+                return _context.Users
+                    .SelectMany(user => _context.UserRooms,
+                        (user, userRoom) => new {user, userRoom})
+                    .Where(t => t.userRoom.RoomId == request.RoomId
+                                && t.userRoom.UserId == t.user.Id)
+                    .Select(t => t.user);
+            }
+
+            return _context.Users;
         }
     }
 }

@@ -1,9 +1,11 @@
 namespace Ange.Application.ChatMessage.Queries.GetChatMessageList
 {
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
+    using Domain.Entities;
     using Interfaces;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
@@ -28,6 +30,16 @@ namespace Ange.Application.ChatMessage.Queries.GetChatMessageList
                     .ProjectTo<ChatMessageLookupModel>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken)
             };
+        }
+
+        private IQueryable<ChatMessage> GetQuery(GetChatMessageListQuery request)
+        {
+            if (!string.IsNullOrEmpty(request.SubString))
+            {
+                return _context.ChatMessages.Where(m => m.MessageText.Contains(request.SubString));
+            }
+
+            return _context.ChatMessages;
         }
     }
 }

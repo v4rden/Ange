@@ -4,5 +4,6 @@ namespace Ange.Application.ChatMessage.Queries.GetChatMessageList
 
     public class GetChatMessageListQuery : IRequest<ChatMessageListViewModel>
     {
+        public string SubString { get; set; }
     }
 }

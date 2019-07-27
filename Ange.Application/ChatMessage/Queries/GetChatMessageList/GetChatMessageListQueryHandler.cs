@@ -1,5 +1,6 @@
 namespace Ange.Application.ChatMessage.Queries.GetChatMessageList
 {
+    using System;
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
@@ -26,7 +27,7 @@ namespace Ange.Application.ChatMessage.Queries.GetChatMessageList
         {
             return new ChatMessageListViewModel
             {
-                ChatMessages = await _context.ChatMessages
+                ChatMessages = await GetQuery(request)
                     .ProjectTo<ChatMessageLookupModel>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken)
             };
@@ -37,6 +38,11 @@ namespace Ange.Application.ChatMessage.Queries.GetChatMessageList
             if (!string.IsNullOrEmpty(request.SubString))
             {
                 return _context.ChatMessages.Where(m => m.MessageText.Contains(request.SubString));
+            }
+
+            if (request.RoomId != Guid.Empty)
+            {
+                return _context.ChatMessages.Where(m => m.RoomId == request.RoomId);
             }
 
             return _context.ChatMessages;

@@ -24,5 +24,13 @@ namespace Ange.WebUI.Controllers
         {
             return Ok(await Mediator.Send(new GetChatMessageListQuery {SubString = sub}));
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ChatMessageListViewModel>> GetAllByRoom(Guid id)
+        {
+            return Ok(await Mediator.Send(new GetChatMessageListQuery {RoomId = id}));
+        }
     }
 }

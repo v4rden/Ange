@@ -2,10 +2,12 @@ namespace Ange.WebUI.Controllers
 {
     using System;
     using System.Threading.Tasks;
+    using Application.ChatMessage.Commands.CreateChatMessage;
     using Application.ChatMessage.Queries.GetChatMessageDetail;
     using Application.ChatMessage.Queries.GetChatMessageList;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Internal;
 
     public class MessageController : BaseController
     {
@@ -31,6 +33,16 @@ namespace Ange.WebUI.Controllers
         public async Task<ActionResult<ChatMessageListViewModel>> GetAllByRoom(Guid id)
         {
             return Ok(await Mediator.Send(new GetChatMessageListQuery {RoomId = id}));
+        }
+
+        [HttpPostAttribute]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Create([FromBody] CreateChatMessageCommand command)
+        {
+            await Mediator.Send(command);
+
+            return NoContent();
         }
     }
 }

@@ -5,6 +5,7 @@ namespace Ange.WebUI.Controllers
     using Application.Room.CreateRoom;
     using Application.Room.Queries.GetRoomDetail;
     using Application.Room.Queries.GetRoomsList;
+    using Application.Room.UpdateRoom;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +46,16 @@ namespace Ange.WebUI.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Create([FromBody] CreateRoomCommand command)
+        {
+            await Mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update([FromBody] UpdateRoomCommand command)
         {
             await Mediator.Send(command);
 

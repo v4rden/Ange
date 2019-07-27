@@ -9,7 +9,7 @@ namespace Ange.Application.ChatMessage.Commands.UpdateChatMessage
     using MediatR;
     using Microsoft.EntityFrameworkCore;
 
-    public class ChatMessageUpdateCommand : IRequest
+    public class UpdateChatMessageCommand : IRequest
     {
         public Guid Id { get; set; }
         public Guid RoomId { get; set; }
@@ -20,7 +20,7 @@ namespace Ange.Application.ChatMessage.Commands.UpdateChatMessage
         public string MessageText { get; set; }
     }
 
-    public class ChatMessageUpdateCommandHandler : IRequestHandler<ChatMessageUpdateCommand, Unit>
+    public class ChatMessageUpdateCommandHandler : IRequestHandler<UpdateChatMessageCommand, Unit>
     {
         private readonly IAngeDbContext _context;
         private readonly IMediator _mediator;
@@ -31,7 +31,7 @@ namespace Ange.Application.ChatMessage.Commands.UpdateChatMessage
             _mediator = mediator;
         }
 
-        public async Task<Unit> Handle(ChatMessageUpdateCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(UpdateChatMessageCommand request, CancellationToken cancellationToken)
         {
             var entity = await _context.ChatMessages
                 .SingleOrDefaultAsync(c => c.Id == request.Id, cancellationToken);

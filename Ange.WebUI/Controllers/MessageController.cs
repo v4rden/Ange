@@ -49,7 +49,7 @@ namespace Ange.WebUI.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update([FromBody] ChatMessageUpdateCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateChatMessageCommand command)
         {
             await Mediator.Send(command);
 

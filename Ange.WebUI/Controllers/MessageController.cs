@@ -3,6 +3,7 @@ namespace Ange.WebUI.Controllers
     using System;
     using System.Threading.Tasks;
     using Application.ChatMessage.Commands.CreateChatMessage;
+    using Application.ChatMessage.Commands.UpdateChatMessage;
     using Application.ChatMessage.Queries.GetChatMessageDetail;
     using Application.ChatMessage.Queries.GetChatMessageList;
     using Microsoft.AspNetCore.Http;
@@ -38,7 +39,17 @@ namespace Ange.WebUI.Controllers
         [HttpPostAttribute]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Create([FromBody] CreateChatMessageCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateChatMessageCommand command)
+        {
+            await Mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update([FromBody] ChatMessageUpdateCommand command)
         {
             await Mediator.Send(command);
 
